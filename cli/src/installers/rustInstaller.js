@@ -10,12 +10,14 @@ import os from 'os';
 import path from 'path';
 import ora from 'ora';
 import shell from 'shelljs';
-import OmnilumenInstaller from './omnilumenInstaller.js';
+import OmnilumenInstaller from '../libs/omnilumenInstaller.js';
 import {displayInstallerVersion, getVersionTags} from "../libs/versionToolkit.js";
 import {execSync} from "child_process";
 import { fileURLToPath } from 'url';
+import { isWindows } from "../utils/util.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 
 export default class RustInstaller extends OmnilumenInstaller {
     constructor() {
@@ -25,14 +27,20 @@ export default class RustInstaller extends OmnilumenInstaller {
     sourceCargoEnv() {
         try {
             const scriptPath = path.resolve(__dirname, 'source_cargo_env.sh');
-            const output = execSync(`sh ${scriptPath}`).toString();
-            // console.log('Environment variables set:', output);
-            // Explicitly set environment variables in the Node.js process
-            const envVars = output.split('\n').filter(line => line.includes('='));
-            envVars.forEach(envVar => {
-                const [key, value] = envVar.split('=');
-                process.env[key] = value;
-            });
+
+            if (!isWindows()) {
+                let output = execSync(`sh ${scriptPath}`).toString();
+                // console.log('Environment variables set:', output);
+                // Explicitly set environment variables in the Node.js process
+                const envVars = output.split('\n').filter(line => line.includes('='));
+                envVars.forEach(envVar => {
+                    const [key, value] = envVar.split('=');
+                    process.env[key] = value;
+                });
+            } else {
+
+            }
+
         } catch (error) {
 
         }

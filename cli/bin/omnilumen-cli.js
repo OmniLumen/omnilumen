@@ -1,5 +1,5 @@
 import cfonts from 'cfonts';
-import ClientMenu from "../src/libs/clientMenu.js";
+import OmnilumenCliMenu from "../src/menu/omnilumenCliMenu.js";
 
 
 cfonts.say('OmniLumen|cli', {
@@ -19,5 +19,5 @@ cfonts.say('OmniLumen|cli', {
     env: 'node'                 // define the environment cfonts is being executed in
 });
 
-const clientMenu = new ClientMenu();
-clientMenu.showMenu();
+const clientMenu = new OmnilumenCliMenu();
+await clientMenu.showMenu();

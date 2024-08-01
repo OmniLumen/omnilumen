@@ -9,8 +9,9 @@
 
 import RustInstaller from './rustInstaller.js';
 import StellarCliInstaller from './stellarCliInstaller.js';
+import { CLI_TOP_MENU} from "../utils/cliConst.js";
 
-export default class InstallerHandler {
+export default class CliInstallerHandler {
     /**
      * Create an installer instance based on the component type.
      * @param {string} componentType - The type of the component.
@@ -19,9 +20,9 @@ export default class InstallerHandler {
      */
     static createInstaller(componentType) {
         switch (componentType) {
-            case 'rust':
+            case CLI_TOP_MENU.RUST:
                 return new RustInstaller();
-            case 'stellar-cli':
+            case CLI_TOP_MENU.STELLAR_CLI:
                 return new StellarCliInstaller();
             default:
                 throw new Error('Unknown component type');

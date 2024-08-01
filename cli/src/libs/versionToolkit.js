@@ -10,7 +10,7 @@
 import axios from 'axios';
 import semver from 'semver';
 import moment from 'moment';
-import InstallerHandler from '../installers/installerHandler.js';
+import CliInstallerHandler from '../installers/cliInstallerHandler.js';
 import Table from "cli-table3";
 import prompts from "prompts";
 
@@ -89,7 +89,7 @@ export const getVersions = async (installers) => {
 
     for (const installerName of installers) {
         try {
-            const installer = InstallerHandler.createInstaller(installerName);
+            const installer = CliInstallerHandler.createInstaller(installerName);
             versions[installerName] = await installer.checkVersion();
         } catch (error) {
             versions[installerName] = 'Unknown';
@@ -153,7 +153,6 @@ export const updateVersion = async (installer) => {
     const version = await promptVersionSelection(installer, 'update');
     if (version) {
         await installer.update(version);
-        await displayInstallerVersion(installer)
     }
 };
 /**
@@ -168,7 +167,7 @@ const promptVersionSelection = async (installer, action) => {
         console.error('Error fetching available versions:', result.error);
         return null;
     }
-    displayVersionTags(result.tags);
+    await displayVersionTags(result.tags);
 
     const response = await prompts({
         type: 'select',

@@ -7,7 +7,7 @@
  * @author Brian Wu
  */
 import shell from 'shelljs';
-import { exec } from 'child_process';
+import {exec as execCallback, spawn} from 'child_process';
 
 class OmnilumenInstaller {
     /**
@@ -58,7 +58,7 @@ class OmnilumenInstaller {
      */
     async runCommand(command) {
         return new Promise((resolve, reject) => {
-            exec(command, (error, stdout, stderr) => {
+            execCallback(command, (error, stdout, stderr) => {
                 if (error) {
                     reject(error);
                 } else {
@@ -95,6 +95,44 @@ class OmnilumenInstaller {
             }, 2000);
         });
     }
+    /**
+     * Run a shell command and log the output in real-time.
+     * @param {string} command - The command to run.
+     */
+    runShellCommandWithLogs(command) {
+        return new Promise((resolve, reject) => {
+            const process = spawn(command, { shell: true });
+
+            process.stdout.on('data', (data) => {
+                const lines = data.toString().split('\n');
+                lines.forEach(line => {
+                    if (line.trim()) {
+                        console.log(line);
+                    }
+                });
+            });
+
+            process.stderr.on('data', (data) => {
+                const lines = data.toString().split('\n');
+                lines.forEach(line => {
+                    if (line.trim()) {
+                        console.error(line);
+                    }
+                });
+            });
+
+            process.on('close', (code) => {
+                if (code === 0) {
+                    console.log(`${command} completed successfully.`);
+                    resolve();
+                } else {
+                    console.error(`${command} failed with exit code ${code}.`);
+                    reject(new Error(`${command} failed with exit code ${code}`));
+                }
+            });
+        });
+    }
+
 }
 
 export default OmnilumenInstaller;
