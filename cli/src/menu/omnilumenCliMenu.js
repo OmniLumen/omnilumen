@@ -1,13 +1,14 @@
 // stellarCliMenu.js
-import BaseMenu from '../libs/baseMenu.js';
-import {COMMON} from "../utils/constants.js";
 import {CLI_TOP_MENU} from "../utils/cliConst.js";
 import inquirer from 'inquirer';
 import chalk from 'chalk';
+import {constants, setup} from '@omnilumen/core';
 import RustInstaller from "../installers/rustInstaller.js";
 import StellarCliInstaller from "../installers/stellarCliInstaller.js";
+const { COMMON } = constants;
+const { BaseSetupMenu } = setup;
 
-class OmnilumenCliMenu extends BaseMenu {
+class OmnilumenCliMenu extends BaseSetupMenu {
 
     constructor() {
         const installerMap = {

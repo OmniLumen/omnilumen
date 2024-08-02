@@ -19,5 +19,15 @@ cfonts.say('OmniLumen|cli', {
     env: 'node'                 // define the environment cfonts is being executed in
 });
 
+/**
+ * Entry point for the OmniLumen CLI application.
+ * Initializes and displays the main menu.
+ *
+ * @async
+ * @function
+ * @name main
+ * @returns {Promise<void>} A promise that resolves when the menu is shown and handled.
+ */
+
 const clientMenu = new OmnilumenCliMenu();
 await clientMenu.showMenu();

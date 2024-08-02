@@ -18,10 +18,10 @@
   "bin": {
     "omnilumen-cli": "./bin/omnilumen-cli.js"
   },
-  "sideEffects": false,
   "type": "module",
   "main": "./dist/cli.js",
   "dependencies": {
+    "@omnilumen/core": "^0.1.7",
     "axios": "^1.7.2",
     "boxen": "^8.0.0",
     "cfonts": "^3.3.0",

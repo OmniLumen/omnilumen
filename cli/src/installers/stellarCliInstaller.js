@@ -6,23 +6,33 @@
  * @license MIT
  * @author Brian Wu
  */
-import OmnilumenInstaller from '../libs/omnilumenInstaller.js';
-import {displayInstallerVersion, getVersionTags} from "../libs/versionToolkit.js";
+
+import { setup, utils } from '@omnilumen/core';
 import {execSync} from 'child_process';
 import os from 'os';
 import ora from "ora";
 import path from "path";
-import {isWindows} from "../utils/util.js";
 import {fileURLToPath} from "url";
+import {STELLAR_CLI_GIT} from "../utils/cliConst.js";
+const { displayInstallerVersion, getVersionTags, runShellCommandWithLogs, runShellCommand, runCommand, OmnilumenInstaller } = setup;
+const { isWindows } = utils;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+/**
+ * Class representing a StellarCl Installer.
+ * @extends OmnilumenInstaller
+ */
 export default class StellarCliInstaller extends OmnilumenInstaller {
+    /**
+     * Create a StellarCliInstaller instance.
+     */
     constructor() {
         super();
     }
-
+    /**
+     * Check if GCC is installed and prompt the user to install it if not.
+     */
     checkAndInstallGcc() {
         try {
             const scriptPath = path.resolve(__dirname, 'source_stellar_cli_env.sh');
@@ -45,7 +55,7 @@ export default class StellarCliInstaller extends OmnilumenInstaller {
         const {
             experimental = false,
             features = "opt",
-            gitUrl = "https://github.com/stellar/stellar-cli.git",
+            gitUrl = STELLAR_CLI_GIT,
             customOptions = ""
         } = options;
 
@@ -72,7 +82,7 @@ export default class StellarCliInstaller extends OmnilumenInstaller {
                         throw new Error('Unsupported platform. Stellar CLI installation supports Windows, macOS, and Unix-like systems.');
                 }
             }
-            await this.runShellCommandWithLogs(command);
+            await runShellCommandWithLogs(command);
             console.log('Stellar CLI installed successfully.');
             // Check and display the installed version
             await displayInstallerVersion(this);
@@ -109,7 +119,7 @@ export default class StellarCliInstaller extends OmnilumenInstaller {
                 default:
                     throw new Error('Unsupported platform. Stellar CLI update supports Windows, macOS, and Unix-like systems.');
             }
-            await this.runShellCommandWithLogs(command);
+            await runShellCommandWithLogs(command);
             console.log(`Stellar CLI updated to version ${version} successfully.`);
             await displayInstallerVersion(this);
         } catch (error) {
@@ -139,7 +149,7 @@ export default class StellarCliInstaller extends OmnilumenInstaller {
                 default:
                     throw new Error('Unsupported platform. Stellar CLI uninstallation supports Windows, macOS, and Unix-like systems.');
             }
-            await this.runShellCommand(command, spinner);
+            await runShellCommand(command, spinner);
             spinner.succeed('stellar-cli uninstalled successfully.');
         } catch (error) {
             if (error.message.includes('not found')) {
@@ -159,14 +169,13 @@ export default class StellarCliInstaller extends OmnilumenInstaller {
         return await getVersionTags('stellar/stellar-core', 12);
     }
 
-
     /**
      * Check the currently installed Stellar CLI version.
      * @returns {Promise<string>} - The installed version.
      */
     async checkVersion() {
         try {
-            return await this.runCommand('stellar --version');
+            return await runCommand('stellar --version');
         } catch (error) {
             return 'Unknown';
         }
