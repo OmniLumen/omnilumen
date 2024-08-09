@@ -1,7 +1,7 @@
 {
   "name": "@omnilumen/cli",
   "description": "OmniLumen CLI streamlines Stellar development, integrating CLI tools, Soroban contract deployment, and local development environments.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -16,12 +16,14 @@
     "lint": "eslint . --ext .js"
   },
   "bin": {
-    "omnilumen-cli": "./bin/omnilumen-cli.js"
+    "omnilumen-cli": "./bin/omnilumen-cli.js",
+    "lumen-cli": "./bin/omnilumen-cli.js",
+    "omni-cli": "./bin/omnilumen-cli.js"
   },
   "type": "module",
   "main": "./dist/cli.js",
   "dependencies": {
-    "@omnilumen/core": "^0.1.7",
+    "@omnilumen/core": "^0.1.9",
     "axios": "^1.7.2",
     "boxen": "^8.0.0",
     "cfonts": "^3.3.0",
