@@ -1,27 +1,43 @@
 {
   "name": "@omnilumen/cli",
   "description": "OmniLumen CLI streamlines Stellar development, integrating CLI tools, Soroban contract deployment, and local development environments.",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/OmniLumen/omnilumen.git",
     "directory": "cli"
   },
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
-    "build": "esbuild src/cli.js --bundle --outdir=dist",
-    "clean": "rimraf ./dist",
-    "dev": "node src/cli.js",
-    "test": "jest",
-    "lint": "eslint . --ext .js"
+    "postinstall": "./postinstall.sh",
+    "clean": "rimraf dist",
+    "build:cjs": "babel src --out-dir dist/cjs --env-name cjs",
+    "build:esm": "babel src --out-dir dist/esm --env-name esm",
+    "build": "npm run clean && npm run build:cjs && npm run build:esm",
+    "test": "mocha 'test/**/*.test.js'",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --ext .js --fix"
   },
   "bin": {
-    "omnilumen-cli": "./bin/omnilumen-cli.js"
+    "omnilumen-cli": "./bin/omnilumen-cli.js",
+    "lumen-cli": "./bin/omnilumen-cli.js",
+    "omni-cli": "./bin/omnilumen-cli.js",
+    "stellar-cli": "./bin/omnilumen-cli.js"
   },
   "type": "module",
-  "main": "./dist/cli.js",
+  "main": "dist/esm/index.js",
+  "bugs": {
+    "url": "https://github.com/OmniLumen/omnilumen/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/OmniLumen/omnilumen/#readme",
   "dependencies": {
-    "@omnilumen/core": "^0.1.7",
+    "@omnilumen/core": "^0.1.9",
     "axios": "^1.7.2",
     "boxen": "^8.0.0",
     "cfonts": "^3.3.0",
@@ -70,8 +86,13 @@
     "omnilumen",
     "stellar",
     "soroban",
+    "blockchain",
+    "lumen",
     "stellar-cli",
+    "stellar-quickstart",
     "web3",
-    "cli"
+    "cli",
+    "llm",
+    "development-suite"
   ]
 }
