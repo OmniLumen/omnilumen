@@ -12,7 +12,7 @@
     "node": "22.x"
   },
   "scripts": {
-    "postinstall": "./postinstall.sh",
+    // "postinstall": "./postinstall.sh",
     "clean": "rimraf dist",
     "build:cjs": "babel src --out-dir dist/cjs --env-name cjs",
     "build:esm": "babel src --out-dir dist/esm --env-name esm",
