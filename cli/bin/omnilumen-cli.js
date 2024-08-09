@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import cfonts from 'cfonts';
 import OmnilumenCliMenu from "../src/menu/omnilumenCliMenu.js";
 import {utils} from '@omnilumen/core';

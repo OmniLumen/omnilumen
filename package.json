@@ -1,0 +1,33 @@
+{
+  "name": "omnilumen",
+  "version": "0.1.0",
+  "description": "Omnilum - A comprehensive suite for Stellar development, including CLI, Quickstart, LLM, and more.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OmniLumen/omnilumen.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+  "publish-cli": "cd cli && npm publish"
+  },
+  "bin": {
+    "omnilumen-cli": "cli/bin/omnilumen-cli.js",
+    "lumen-cli": "cli/bin/omnilumen-cli.js"
+  },
+  "dependencies": {
+    "@omnilumen/cli": "^0.1.0"
+  },
+  "keywords": [
+    "omnilumen",
+    "stellar",
+    "soroban",
+    "blockchain",
+    "cli",
+    "quickstart",
+    "llm",
+    "web3"
+  ]
+}
