@@ -1,10 +1,20 @@
 #!/usr/bin/env node
 
+/**
+ * @file omnilumen-cli.js
+ * @description Main entry point for the OmniLumen CLI. Handles command-line arguments, reconstructs commands, and executes them using the Stellar CLI.
+ * @module bin
+ * @version 1.0.0
+ * @license MIT
+ * @author Brian Wu
+ */
+
+
 import cfonts from 'cfonts';
 import OmnilumenCliMenu from "../src/menu/omnilumenCliMenu.js";
 import {utils} from '@omnilumen/core';
 import {stellarCommandStructure} from '../src/conf/stellarCliConf.js';
-const { ensureStellarCli, executeCommand, processCommand } = utils;
+const { ensureStellarCli, executeCommand, generateCommandPaths, loadConfigStore, processCliCommandArgs } = utils;
 
 // Function to display the menu
 async function showMenu() {
@@ -39,6 +49,7 @@ async function showMenu() {
 }
 
 
+
 /**
  * Main entry point for the OmniLumen CLI application.
  * Ensures Stellar CLI is installed and handles command line arguments.
@@ -65,27 +76,44 @@ async function showMenu() {
  */
 async function main() {
     const stellarCliInstalled = await ensureStellarCli();
-    //example: node bin/omnilumen-cli.js
+
     if (!stellarCliInstalled || process.argv.length <= 2) {
         await showMenu();
     } else {
         const args = process.argv.slice(2); // Skip 'node' and 'omnilumen-cli'
+
+        // Reconstruct the command line string
+        const reconstructedCommand = args.map(arg => {
+            // Add quotes if the argument contains spaces, semicolons, or ampersands
+            if (arg.includes(' ') || arg.includes(';') || arg.includes('&')) {
+                return `"${arg}"`;
+            }
+            return arg;
+        }).join(' ');
+
+        // Load the CLI configuration store
+        const cliConf = loadConfigStore('stellar_cli-conf');
+
+        // Generate command paths based on the current command structure
+        generateCommandPaths(cliConf, stellarCommandStructure, '');
+
         let finalCommand;
         // If no specific command is provided, show the help message
         if (args.length === 0) {
             finalCommand = 'stellar --help';
         } else {
-            let command = args[0];
+            const command = args[0];
             if (command === 'stellar') {
                 // If the command is 'stellar', execute the remaining arguments
                 finalCommand = `stellar ${args.slice(1).join(' ')}`;
             } else {
-                const command = args.join(' ');
-                finalCommand = await processCommand(stellarCommandStructure, command);
+                const updatedReconstructedCommand = `stellar ${reconstructedCommand}`;
+                finalCommand = await processCliCommandArgs(cliConf, updatedReconstructedCommand);
             }
         }
-        // console.log("Executing:", finalCommand);
-        executeCommand(finalCommand)
+        // Execute the final command
+        console.log("Executing:", finalCommand);
+        executeCommand(finalCommand);
     }
 }
 
