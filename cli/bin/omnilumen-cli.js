@@ -112,7 +112,6 @@ async function main() {
             }
         }
         // Execute the final command
-        console.log("Executing:", finalCommand);
         executeCommand(finalCommand);
     }
 }
