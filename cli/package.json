@@ -1,7 +1,7 @@
 {
   "name": "@omnilumen/cli",
   "description": "OmniLumen CLI streamlines Stellar development, integrating CLI tools, Soroban contract deployment, and local development environments.",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "license": "MIT",
   "repository": {
     "type": "git",
