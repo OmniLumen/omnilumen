@@ -86,6 +86,10 @@ export default class RustInstaller extends OmnilumenInstaller {
             // Set the default toolchain to the latest stable version
             await runShellCommand(`${this.getRustupCommand()} default stable`, spinner);
             spinner.succeed('Rust installed successfully.');
+             // Add the wasm32-unknown-unknown target
+             const wasmSpinner = ora('Adding wasm32-unknown-unknown target...').start();
+             await runShellCommand(`${this.getRustupCommand()} target add wasm32-unknown-unknown`, wasmSpinner);
+             wasmSpinner.succeed('WebAssembly target added successfully.');
             // Refresh environment variables
             // shell.env['PATH'] += `:${shell.env['HOME']}/.cargo/bin`;
             this.sourceCargoEnv();
