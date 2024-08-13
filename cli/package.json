@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/OmniLumen/omnilumen/#readme",
   "dependencies": {
-    "@omnilumen/core": "^0.1.11"
+    "@omnilumen/core": "^0.1.30"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.8",
