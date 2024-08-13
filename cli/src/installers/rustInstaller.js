@@ -11,14 +11,15 @@ import path from 'path';
 import ora from 'ora';
 import shell from 'shelljs';
 
-import {setup, utils} from '@omnilumen/core';
+import {constants, setup, utils} from '@omnilumen/core';
 import {execSync} from "child_process";
-import { fileURLToPath } from 'url';
+import {fileURLToPath} from 'url';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const { displayInstallerVersion, getVersionTags, runShellCommand, OmnilumenInstaller } = setup;
+const { displayInstallerVersion, getVersionTags, runShellCommand, displayVersionTagsTable, OmnilumenInstaller } = setup;
 const { isWindows } = utils;
-
+const {TAG} = constants
 /**
  * Class representing a Rust Installer.
  * @extends OmnilumenInstaller
@@ -86,10 +87,10 @@ export default class RustInstaller extends OmnilumenInstaller {
             // Set the default toolchain to the latest stable version
             await runShellCommand(`${this.getRustupCommand()} default stable`, spinner);
             spinner.succeed('Rust installed successfully.');
-             // Add the wasm32-unknown-unknown target
-             const wasmSpinner = ora('Adding wasm32-unknown-unknown target...').start();
-             await runShellCommand(`${this.getRustupCommand()} target add wasm32-unknown-unknown`, wasmSpinner);
-             wasmSpinner.succeed('WebAssembly target added successfully.');
+            // Add the wasm32-unknown-unknown target
+            const wasmSpinner = ora('Adding wasm32-unknown-unknown target...').start();
+            await runShellCommand(`${this.getRustupCommand()} target add wasm32-unknown-unknown`, wasmSpinner);
+            wasmSpinner.succeed('WebAssembly target added successfully.');
             // Refresh environment variables
             // shell.env['PATH'] += `:${shell.env['HOME']}/.cargo/bin`;
             this.sourceCargoEnv();
@@ -142,6 +143,13 @@ export default class RustInstaller extends OmnilumenInstaller {
         }
     }
     /**
+     * get the component tag type.
+     * @throws {Error} Method not implemented.
+     */
+    async tagType() {
+        return TAG.GIT
+    }
+    /**
      * Get available Rust versions.
      * @returns {Promise<string>} - The available versions.
      */
@@ -157,6 +165,18 @@ export default class RustInstaller extends OmnilumenInstaller {
             throw error;
         }
     }
+    /**
+     * display available Rust versions.
+     * @returns {Promise<string>} - The available versions.
+     */
+    async  displayVersionTags(tags) {
+        try {
+            await displayVersionTagsTable(tags, [20, 20, 20, 20])
+        } catch (error) {
+            throw error;
+        }
+    }
+
     /**
      * Check the currently installed Rust version.
      * @returns {Promise<string>} - The installed version.

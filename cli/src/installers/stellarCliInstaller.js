@@ -7,15 +7,16 @@
  * @author Brian Wu
  */
 
-import { setup, utils } from '@omnilumen/core';
+import { setup, utils, constants } from '@omnilumen/core';
 import {execSync} from 'child_process';
 import os from 'os';
 import ora from "ora";
 import path from "path";
 import {fileURLToPath} from "url";
 import {STELLAR_CLI_GIT} from "../utils/cliConst.js";
-const { displayInstallerVersion, getVersionTags, runShellCommandWithLogs, runShellCommand, runCommand, OmnilumenInstaller } = setup;
+const { displayInstallerVersion, getVersionTags, runShellCommandWithLogs, runShellCommand, runCommand, displayVersionTagsTable, OmnilumenInstaller } = setup;
 const { isWindows } = utils;
+const {TAG} = constants
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -168,7 +169,24 @@ export default class StellarCliInstaller extends OmnilumenInstaller {
     async getAvailableVersions() {
         return await getVersionTags('stellar/stellar-core', 12);
     }
-
+    /**
+     * get the component tag type.
+     * @throws {Error} Method not implemented.
+     */
+    async tagType() {
+        return TAG.GIT
+    }
+    /**
+     * display available Stellar CLI versions.
+     * @returns {Promise<string>} - The available versions.
+     */
+    async  displayVersionTags(tags) {
+        try {
+            await displayVersionTagsTable(tags, [20, 20, 20, 20])
+        } catch (error) {
+            throw error;
+        }
+    }
     /**
      * Check the currently installed Stellar CLI version.
      * @returns {Promise<string>} - The installed version.
