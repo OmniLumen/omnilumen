@@ -23,7 +23,6 @@
   "bin": {
     "omnilumen-cli": "./bin/omnilumen-cli.js",
     "lumen-cli": "./bin/omnilumen-cli.js",
-    "ocli": "./bin/omnilumen-cli.js",
     "scli": "./bin/omnilumen-cli.js"
   },
   "type": "module",
@@ -36,7 +35,7 @@
   },
   "homepage": "https://github.com/OmniLumen/omnilumen/#readme",
   "dependencies": {
-    "@omnilumen/core": "^0.1.30"
+    "@omnilumen/core": "^0.1.37"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.8",
