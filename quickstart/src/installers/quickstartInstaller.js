@@ -1,7 +1,7 @@
 /**
- * @file RustInstaller.js
- * @description Rust installer for Omnilumen.
- * @module RustInstaller
+ * @file quickstartInstaller.js
+ * @description Quickstart installer for Omnilumen.
+ * @module QuickstartInstaller
  * @version 1.0.0
  * @license MIT
  * @author Brian Wu

@@ -1,4 +1,12 @@
-// stellarQuickstartMenu.js
+/**
+ * @file omnilumenQuickStartMenu.js
+ * @description Quickstart Menu for Omnilumen.
+ * @module omnilumenQuickStartMenu
+ * @version 1.0.0
+ * @license MIT
+ * @author Brian Wu
+ */
+
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import {constants, setup} from '@omnilumen/core';

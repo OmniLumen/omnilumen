@@ -1,7 +1,7 @@
 {
   "name": "@omnilumen/quickstart",
   "description": "OmniLumen Quickstart streamlines Stellar development, integrating quickstart tools, provides a simple way to run stellar-core and horizon locally for development and testing.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -12,22 +12,21 @@
     "access": "public"
   },
   "scripts": {
-    "build": "esbuild src/quickstart.js --bundle --outdir=dist",
+    "build": "esbuild src/index.js --bundle --outdir=dist",
     "clean": "rimraf ./dist",
-    "dev": "node src/quickstart.js",
+    "dev": "node src/index.js",
     "test": "jest",
     "lint": "eslint . --ext .js"
   },
   "bin": {
     "omnilumen-quickstart": "./bin/omnilumen-quickstart.js",
     "lumen-quickstart": "./bin/omnilumen-quickstart.js",
-    "oqs": "./bin/omnilumen-quickstart.js",
     "sqs": "./bin/omnilumen-quickstart.js"
   },
   "type": "module",
   "main": "./dist/quickstart.js",
   "dependencies": {
-    "@omnilumen/core": "^0.1.30",
+    "@omnilumen/core": "^0.1.37",
     "inquirer": "^10.1.8"
   },
   "devDependencies": {
