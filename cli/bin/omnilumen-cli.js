@@ -9,7 +9,7 @@
  * @author Brian Wu
  */
 
-import OmnilumenCliMenu from "../src/menu/omnilumenCliMenu.js";
+import OmnilumenCliMenu, {showCliHelp} from "../src/menu/omnilumenCliMenu.js";
 import {utils, setup} from '@omnilumen/core';
 const {displayHomeMenu} = setup;
 import {stellarCommandStructure} from '../src/conf/stellarCliConf.js';
@@ -65,7 +65,12 @@ async function main() {
         await showMenu();
     } else {
         const args = process.argv.slice(2); // Skip 'node' and 'omnilumen-cli'
-
+        const command = args[0].toLowerCase();
+        // Handle help commands
+        if (command === '--help' || command === '-h') {
+            showCliHelp('OmniLumen CLI Commands:', stellarCommandStructure);
+            return;
+        }
         // Reconstruct the command line string
         const reconstructedCommand = args.map(arg => {
             // Add quotes if the argument contains spaces, semicolons, or ampersands
