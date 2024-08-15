@@ -1,6 +1,17 @@
+#!/usr/bin/env node
+
+/**
+ * @file omnilumen-quickstart.js
+ * @description Main entry point for the OmniLumen quickstart. Handles command-line arguments, reconstructs commands, and executes them using the Stellar quickstart.
+ * @module bin
+ * @version 1.0.0
+ * @license MIT
+ * @author Brian Wu
+ */
+
 import OmnilumenQuickStartMenu from "../src/menu/omnilumenQuickStartMenu.js";
 import {
-    processCustomCommand,
+    processCustomCommand,quickstartCommands,
     startFutureNetNode,
     startFutureNetPersistentNode,
     startLocalNetwork,
@@ -11,7 +22,7 @@ import {STELLAR_QUICK_START_IMAGE} from "../src/utils/quickstartConst.js";
 import {setup, utils} from '@omnilumen/core';
 
 const { ensureStellarQuickStart, shutdownContainer } = utils;
-const {displayHomeMenu} = setup;
+const {displayHomeMenu, showHelp} = setup;
 
 
 
@@ -58,7 +69,11 @@ async function main() {
     } else {
         const args = process.argv.slice(2); // Skip 'node' and 'omnilumen-quickstart'
         const command = args[0].toLowerCase();
-
+        // Handle help commands
+        if (command === '--help' || command === '-h') {
+            showHelp('OmniLumen Quickstart Commands:', quickstartCommands);
+            return;
+        }
         // Handle quick commands
         switch (command) {
             case 'start-local':

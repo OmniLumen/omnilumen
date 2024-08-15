@@ -59,6 +59,20 @@ export default class QuickStartInstaller extends OmnilumenInstaller {
             await runShellCommand(`docker pull stellar/quickstart:${version}`, spinner);
             spinner.succeed(`Quickstart updated to version ${version} successfully.`);
 
+            // Get the list of running containers using the stellar/quickstart image
+            const containersUsingImage = shell.exec(
+                `docker ps -q --filter ancestor=stellar/quickstart`,
+                { silent: true }
+            ).stdout.split('\n').filter(id => id);
+
+            // Stop and remove any running containers using the image
+            for (const containerId of containersUsingImage) {
+                spinner.info(`Stopping container ${containerId} using stellar/quickstart image...`);
+                await runShellCommand(`docker stop ${containerId}`, spinner);
+                await runShellCommand(`docker rm ${containerId}`, spinner);
+                spinner.succeed(`Stopped and removed container ${containerId}.`);
+            }
+
             // Remove any previous versions except the current one
             const imagesToRemove = shell.exec('docker images stellar/quickstart --format "{{.Tag}}"', { silent: true })
                 .stdout.split('\n')
@@ -66,9 +80,10 @@ export default class QuickStartInstaller extends OmnilumenInstaller {
                 .filter(tag => tag && tag !== version);
 
             for (const oldVersion of imagesToRemove) {
-                await runShellCommand(`docker rmi stellar/quickstart:${oldVersion}`, spinner);
+                await runShellCommand(`docker rmi -f stellar/quickstart:${oldVersion}`, spinner); // Use -f to force remove
                 spinner.succeed(`Removed old version: stellar/quickstart:${oldVersion}`);
             }
+
 
             // Optionally, check and display the installed version
             await displayInstallerVersion(this);

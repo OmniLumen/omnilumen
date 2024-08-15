@@ -129,3 +129,50 @@ export const getVolumeOption = (networkOption) => {
     // Return the Docker volume option string
     return `-v "${defaultVolumeDir}:/opt/stellar"`;
 }
+
+
+export const quickstartCommands = [
+    {
+        command: 'start-local',
+        aliases: ['local', 'up'],
+        description: 'Start a local development network',
+        example: 'sqs local'
+    },
+    {
+        command: 'start-futurenet',
+        aliases: ['future', 'fn'],
+        description: 'Start a futurenet node',
+        example: 'sqs future'
+    },
+    {
+        command: 'start-futurenet-persistent',
+        aliases: ['futurenet-persist', 'future-persist', 'fn-persist', 'fnp'],
+        description: 'Start a persistent futurenet node',
+        example: 'sqs futurenet-persist'
+    },
+    {
+        command: 'start-testnet',
+        aliases: ['tn'],
+        description: 'Start a testnet node',
+        example: 'sqs tn'
+    },
+    {
+        command: 'start-testnet-persistent',
+        aliases: ['testnet-persist', 'tn-persist', 'tnp'],
+        description: 'Start a persistent testnet node',
+        example: 'sqs testnet-persist'
+    },
+    {
+        command: 'shutdown',
+        aliases: ['down'],
+        description: 'Shutdown a running Stellar Quickstart container',
+        example: 'sqs down'
+    },
+    // Default/custom commands
+    {
+        command: 'docker run',
+        aliases: ['docker run'],
+        description: 'Run a custom Docker command',
+        example: 'sqs docker run -p 8000:8000 stellar/quickstart --local'
+    },
+];
