@@ -1,12 +1,13 @@
 {
   "name": "omnilumen",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "Omnilum - A comprehensive suite for Stellar and Soroban development suite, including CLI, Quickstart, LLM, and more.",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/OmniLumen/omnilumen.git"
   },
+  "homepage": "https://www.omnilumen.net/",
   "publishConfig": {
     "access": "public"
   },
@@ -29,8 +30,8 @@
   "type": "module",
   "main": "dist/esm/index.js",
   "dependencies": {
-    "@omnilumen/cli": "^0.1.10",
-    "@omnilumen/quickstart": "^0.1.5",
+    "@omnilumen/cli": "^1.0.0",
+    "@omnilumen/quickstart": "^1.0.0",
     "cli-table3": "^0.6.5",
     "prompts": "^2.4.2"
   },

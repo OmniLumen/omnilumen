@@ -136,19 +136,19 @@ export const quickstartCommands = [
         command: 'start-local',
         aliases: ['local', 'up'],
         description: 'Start a local development network',
-        example: 'sqs local'
+        example: 'sqs local (OR) sqs up'
     },
     {
         command: 'start-futurenet',
         aliases: ['future', 'fn'],
         description: 'Start a futurenet node',
-        example: 'sqs future'
+        example: 'sqs future (OR) sqs fn'
     },
     {
         command: 'start-futurenet-persistent',
         aliases: ['futurenet-persist', 'future-persist', 'fn-persist', 'fnp'],
         description: 'Start a persistent futurenet node',
-        example: 'sqs futurenet-persist'
+        example: 'sqs futurenet-persist (OR) sqs fnp'
     },
     {
         command: 'start-testnet',
@@ -160,7 +160,7 @@ export const quickstartCommands = [
         command: 'start-testnet-persistent',
         aliases: ['testnet-persist', 'tn-persist', 'tnp'],
         description: 'Start a persistent testnet node',
-        example: 'sqs testnet-persist'
+        example: 'sqs testnet-persist (OR) sqs tnp'
     },
     {
         command: 'shutdown',
