@@ -1,13 +1,14 @@
 {
   "name": "@omnilumen/quickstart",
   "description": "OmniLumen Quickstart streamlines Stellar development, integrating quickstart tools, provides a simple way to run stellar-core and horizon locally for development and testing.",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/OmniLumen/omnilumen.git",
     "directory": "quickstart"
   },
+  "homepage": "https://www.omnilumen.net/",
   "engines": {
     "node": "22.x"
   },
@@ -34,7 +35,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@omnilumen/core": "^0.1.40",
+    "@omnilumen/core": "^1.0.0",
     "inquirer": "^10.1.8"
   },
   "devDependencies": {

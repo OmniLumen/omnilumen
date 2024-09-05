@@ -227,7 +227,7 @@ var QuickStartInstaller = exports["default"] = /*#__PURE__*/function (_Omnilumen
     key: "uninstall",
     value: (function () {
       var _uninstall = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3() {
-        var spinner;
+        var spinner, removeImagesCommand;
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
@@ -236,28 +236,30 @@ var QuickStartInstaller = exports["default"] = /*#__PURE__*/function (_Omnilumen
               _context3.next = 4;
               return runShellCommand('docker rm -f stellar', spinner);
             case 4:
-              _context3.next = 6;
-              return runShellCommand('docker rmi stellar/quickstart', spinner);
-            case 6:
+              // Remove the Stellar Quickstart Docker image
+              removeImagesCommand = 'docker images stellar/quickstart --format "{{.Repository}}:{{.Tag}}" | xargs -r docker rmi';
+              _context3.next = 7;
+              return runShellCommand(removeImagesCommand, spinner);
+            case 7:
               spinner.succeed('Stellar Quickstart uninstalled successfully.');
-              _context3.next = 9;
+              _context3.next = 10;
               return displayInstallerVersion(this);
-            case 9:
-              _context3.next = 14;
+            case 10:
+              _context3.next = 15;
               break;
-            case 11:
-              _context3.prev = 11;
+            case 12:
+              _context3.prev = 12;
               _context3.t0 = _context3["catch"](1);
               if (_context3.t0.message.includes('No such container') || _context3.t0.message.includes('No such image')) {
                 spinner.succeed('Stellar Quickstart was already uninstalled.');
               } else {
                 spinner.fail("Stellar Quickstart uninstallation failed: ".concat(_context3.t0.message));
               }
-            case 14:
+            case 15:
             case "end":
               return _context3.stop();
           }
-        }, _callee3, this, [[1, 11]]);
+        }, _callee3, this, [[1, 12]]);
       }));
       function uninstall() {
         return _uninstall.apply(this, arguments);

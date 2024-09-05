@@ -105,7 +105,8 @@ export default class QuickStartInstaller extends OmnilumenInstaller {
             await runShellCommand('docker rm -f stellar', spinner);
 
             // Remove the Stellar Quickstart Docker image
-            await runShellCommand('docker rmi stellar/quickstart', spinner);
+            const removeImagesCommand = 'docker images stellar/quickstart --format "{{.Repository}}:{{.Tag}}" | xargs -r docker rmi';
+            await runShellCommand(removeImagesCommand, spinner);
             spinner.succeed('Stellar Quickstart uninstalled successfully.');
             await displayInstallerVersion(this);
         } catch (error) {
