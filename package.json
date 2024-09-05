@@ -1,6 +1,6 @@
 {
   "name": "omnilumen",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Omnilum - A comprehensive suite for Stellar and Soroban development suite, including CLI, Quickstart, LLM, and more.",
   "license": "MIT",
   "repository": {
