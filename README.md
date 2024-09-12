@@ -9,7 +9,7 @@ As a Stellar developer, managing various aspects of the development process can 
 
 ## Features
 
-- ### OmniLumen CLI (ocli):
+- ### OmniLumen CLI (scli):
   
    Wraps Stellar CLI with additional commands for easier interaction with the Stellar network.
 

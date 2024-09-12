@@ -1,6 +1,6 @@
 # OmniLumen CLI
 
-OmniLumen CLI (ocli) is a powerful command-line interface designed for interacting with the Stellar network. It wraps around the Stellar CLI, adding enhanced functionality for streamlined operations, making it easier for developers to manage their Stellar-related tasks.
+OmniLumen CLI (scli) is a powerful command-line interface designed for interacting with the Stellar network. It wraps around the Stellar CLI, adding enhanced functionality for streamlined operations, making it easier for developers to manage their Stellar-related tasks.
 ## Installation
 
 To install the OmniLumen CLI, ensure Node.js is installed, and then run the following command:
@@ -14,7 +14,7 @@ npm install -g omnilumen@latest
 After installation, you can access the OmniLumen interactive menu by simply running:
 
 ```sh
-ocli
+scli
 ```
 ### example Commands
 OmniLumen CLI supports various commands for managing Stellar operations. Below are a few examples:
